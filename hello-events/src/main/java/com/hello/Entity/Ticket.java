@@ -22,4 +22,8 @@ public class Ticket {
 
     private LocalDateTime purchaseDate;
 
+    public Ticket(Event event, User user) {
+        this.event = event;
+        this.user = user;
+    }
 }

@@ -1,7 +1,6 @@
 package com.hello.service;
 
 import com.hello.Entity.Contact;
-import com.hello.Entity.User;
 import com.hello.enums.ContactStatus;
 import com.hello.enums.Role;
 import com.hello.repository.ContactRepository;
@@ -28,7 +27,7 @@ public class ContactService {
 
     // Récupérer toutes les demandes de contact (administrateur)
     public List<Contact> getAllContacts(User user) {
-        if (user.getRole() == Role.ADMIN) {
+        if (user.getRole() == Role.ROLE_ADMIN) {
             return contactRepository.findAll();
         }
         throw new SecurityException("Access Denied");
@@ -36,7 +35,7 @@ public class ContactService {
 
     // Récupérer une demande de contact par son ID
     public Optional<Contact> getContactById(Long id, User user) {
-        if (user.getRole() == Role.ADMIN) {
+        if (user.getRole() == Role.ROLE_ADMIN) {
             return contactRepository.findById(id);
         }
         throw new SecurityException("Access Denied");
@@ -44,7 +43,7 @@ public class ContactService {
 
     // Mettre à jour l'état d'une demande de contact
     public Contact updateContactStatus(Long id, ContactStatus status, User user) {
-        if (user.getRole() == Role.ADMIN) {
+        if (user.getRole() == Role.ROLE_ADMIN) {
             Contact contact = contactRepository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Contact not found"));
 

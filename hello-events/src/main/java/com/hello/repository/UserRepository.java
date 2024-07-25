@@ -1,4 +1,7 @@
 package com.hello.repository;
 
-public interface UserRepository {
+import com.hello.Entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User,Long> {
 }

@@ -1,11 +1,9 @@
 package com.hello.controller;
 
 import com.hello.Entity.Contact;
-import com.hello.Entity.User;
 import com.hello.enums.ContactStatus;
 import com.hello.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
