@@ -28,4 +28,27 @@ public class EventService {
             return eventRepository.findAll();
         }
     }
+
+    public Event getEventById(Long id) {
+        return eventRepository.findById(id).orElse(null);
+    }
+
+    public Event createEvent(Event event) {
+        return eventRepository.save(event);
+    }
+
+    public Event updateEvent(Long id, Event eventDetails) {
+        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
+        event.setName(eventDetails.getName());
+        event.setDescription(eventDetails.getDescription());
+        event.setLocation(eventDetails.getLocation());
+        event.setDate(eventDetails.getDate());
+        event.setCategory(eventDetails.getCategory());
+        return eventRepository.save(event);
+    }
+
+    public void deleteEvent(Long id) {
+        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
+        eventRepository.delete(event);
+    }
 }
