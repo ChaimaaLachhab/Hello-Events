@@ -51,4 +51,6 @@ public class EventController {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
+    
 }

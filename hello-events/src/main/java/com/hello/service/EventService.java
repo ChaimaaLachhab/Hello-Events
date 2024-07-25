@@ -46,7 +46,6 @@ public class EventService {
         event.setCategory(eventDetails.getCategory());
         return eventRepository.save(event);
     }
-
     public void deleteEvent(Long id) {
         Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
         eventRepository.delete(event);
