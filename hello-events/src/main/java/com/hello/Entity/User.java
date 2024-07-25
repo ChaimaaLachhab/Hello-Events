@@ -1,5 +1,6 @@
 package com.hello.Entity;
 
+import com.hello.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }
