@@ -19,14 +19,14 @@ public class EventController {
     public List<Event> getEvents() {
         return eventService.getAllEvents();
     }
-
     @GetMapping("/search")
-    public List<Event> searchEvents(@RequestParam(required = false) String date,
-                                    @RequestParam(required = false) String location,
-                                    @RequestParam(required = false) String category) {
-        return eventService.searchEvents(date, location, category);
+    public ResponseEntity<List<Event>> searchEvents(
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String location,
+            @RequestParam(required = false) String category) {
+        List<Event> events = eventService.searchEvents(date, location, category);
+        return ResponseEntity.ok(events);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);
