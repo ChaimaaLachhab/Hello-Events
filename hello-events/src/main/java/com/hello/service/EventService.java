@@ -29,6 +29,7 @@ public class EventService {
         }
     }
 
+
     public Event getEventById(Long id) {
         return eventRepository.findById(id).orElse(null);
     }
@@ -50,4 +51,5 @@ public class EventService {
         Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
         eventRepository.delete(event);
     }
+
 }

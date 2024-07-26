@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class EventController {
         return eventService.searchEvents(date, location, category);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);
@@ -45,12 +47,14 @@ public class EventController {
     }
 
     @DeleteMapping("/{id}")
-    public Map<String, Boolean> deleteEvent(@PathVariable Long id) {
+    public List<Boolean> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
+        List<Boolean> response = new ArrayList<>();
+        response.add(Boolean.TRUE);
         return response;
     }
 
-    
+
+
+
 }
