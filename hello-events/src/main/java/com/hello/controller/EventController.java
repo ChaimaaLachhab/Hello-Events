@@ -19,7 +19,6 @@ public class EventController {
     public List<Event> getEvents() {
         return eventService.getAllEvents();
     }
-
     @GetMapping("/search")
     public ResponseEntity<List<Event>> searchEvents(
             @RequestParam(required = false) String date,
@@ -28,7 +27,6 @@ public class EventController {
         List<Event> events = eventService.searchEvents(date, location, category);
         return ResponseEntity.ok(events);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);

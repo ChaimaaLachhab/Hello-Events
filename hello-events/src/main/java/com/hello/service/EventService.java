@@ -16,9 +16,13 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
+
+
+
     public List<Event> searchEvents(String date, String location, String category) {
         return eventRepository.findByDateLocationCategory(date, location, category);
     }
+
 
 //    public List<Event> searchEvents(String date, String location, String category) {
 //        if (date != null && location != null && category != null) {
