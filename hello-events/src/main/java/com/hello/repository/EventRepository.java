@@ -14,7 +14,7 @@ public interface EventRepository extends JpaRepository <Event,Long> {
     List<Event> findByDateContaining(String date);
     List<Event> findByLocationContaining(String location);
     List<Event> findByCategoryContaining(String category);
-
+    
     @Query("SELECT e FROM Event e WHERE " +
             "(CAST(:date AS string) IS NULL OR CAST(e.date AS string) LIKE %:date%) AND " +
             "(COALESCE(:location, '') = '' OR e.location LIKE %:location%) AND " +
