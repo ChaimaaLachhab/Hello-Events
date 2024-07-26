@@ -9,12 +9,14 @@ import java.util.List;
 
 @Service
 public class EventService {
+
     @Autowired
     private EventRepository eventRepository;
 
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
+
     public List<Event> searchEvents(String date, String location, String category) {
         if (date != null && location != null && category != null) {
             return eventRepository.findByDateContainingAndLocationContainingAndCategoryContaining(date, location, category);
@@ -29,7 +31,6 @@ public class EventService {
         }
     }
 
-
     public Event getEventById(Long id) {
         return eventRepository.findById(id).orElse(null);
     }
@@ -39,7 +40,8 @@ public class EventService {
     }
 
     public Event updateEvent(Long id, Event eventDetails) {
-        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
         event.setName(eventDetails.getName());
         event.setDescription(eventDetails.getDescription());
         event.setLocation(eventDetails.getLocation());
@@ -47,9 +49,10 @@ public class EventService {
         event.setCategory(eventDetails.getCategory());
         return eventRepository.save(event);
     }
+
     public void deleteEvent(Long id) {
-        Event event = eventRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found for this id :: " + id));
         eventRepository.delete(event);
     }
-
 }
