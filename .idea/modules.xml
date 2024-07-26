@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Hello-Events.iml" filepath="$PROJECT_DIR$/.idea/Hello-Events.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hello-events/com.iml" filepath="$PROJECT_DIR$/hello-events/com.iml" />
     </modules>
   </component>
 </project>
