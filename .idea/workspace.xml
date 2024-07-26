@@ -39,7 +39,7 @@
     "Maven.hello [clean].executor": "Run",
     "Maven.hello [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "admin",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/user/OneDrive/Desktop/File-database/Hello-Events/hello-events/src/main/java/com/hello/service",
     "node.js.detected.package.eslint": "true",
@@ -59,8 +59,8 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\user\OneDrive\Desktop\File-database\Hello-Events\hello-events\src\main\java\com\hello\service" />
       <recent name="C:\Users\user\OneDrive\Desktop\File-database\Hello-Events\hello-events\src\main\java\com\hello\repository" />
-      <recent name="C:\Users\user\OneDrive\Desktop\File-database\Hello-Events\hello-events\src\main\java\com\hello\controller" />
       <recent name="C:\Users\user\OneDrive\Desktop\File-database\Hello-Events\hello-events\src\main\java\com\hello\Entity" />
+      <recent name="C:\Users\user\OneDrive\Desktop\File-database\Hello-Events\hello-events\src\main\java\com\hello\controller" />
     </key>
   </component>
   <component name="RunManager">
@@ -90,6 +90,7 @@
       <updated>1721840881517</updated>
       <workItem from="1721840882746" duration="157000" />
       <workItem from="1721841060099" duration="1399000" />
+      <workItem from="1721901024725" duration="7745000" />
     </task>
     <servers />
   </component>

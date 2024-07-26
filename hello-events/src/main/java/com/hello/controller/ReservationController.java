@@ -1,10 +1,12 @@
 package com.hello.controller;
 
-
-import com.hello.Entity.Ticket;
+import com.hello.Entity.Reservation;
 import com.hello.Entity.User;
+import com.hello.enums.Role;
 import com.hello.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,22 +22,25 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    // Endpoint pour acheter un billet pour un événement (client)
-    @PostMapping("/purchase")
-    public Ticket purchaseTicket(@RequestParam Long eventId, @RequestParam User user) {
-        return reservationService.purchaseTicket(eventId, user);
+    @PostMapping("/client/purchase")
+    public ResponseEntity<Reservation> purchaseTicket(
+            @RequestParam Long eventId,
+            @AuthenticationPrincipal User user) {
+        Reservation reservation = reservationService.purchaseTicket(eventId, user);
+        return ResponseEntity.ok(reservation);
     }
 
-    // Endpoint pour récupérer tous les billets achetés par un utilisateur (client)
-    @GetMapping("/user")
-    public List<Ticket> getUserTickets(@RequestParam User user) {
-        return reservationService.getTicketsByUser(user);
+    @GetMapping("/client")
+    public ResponseEntity<List<Reservation>> getUserTickets(
+            @AuthenticationPrincipal User user) {
+        List<Reservation> reservations = reservationService.getTicketsByUser(user);
+        return ResponseEntity.ok(reservations);
     }
 
-    // Endpoint pour récupérer toutes les activités d'achat des clients (admin)
-    @GetMapping("/purchases")
-    public List<Ticket> getAllPurchases(@RequestParam User user) {
-        return reservationService.getAllPurchases(user);
+    @GetMapping("/admin/purchases")
+    public ResponseEntity<List<Reservation>> getAllPurchases(
+            @AuthenticationPrincipal User user) {
+        List<Reservation> purchases = reservationService.getAllPurchases(user);
+        return ResponseEntity.ok(purchases);
     }
 }
-
