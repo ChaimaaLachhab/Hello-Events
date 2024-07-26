@@ -5,6 +5,7 @@ import com.hello.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,27 +17,9 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
-
-
-
-    public List<Event> searchEvents(String date, String location, String category) {
-        return eventRepository.findByDateLocationCategory(date, location, category);
+    public List<Event> searchEvents(LocalDateTime date, String location, String category) {
+        return eventRepository.findEventByDateOrLocationOrCategory(date, location, category);
     }
-
-
-//    public List<Event> searchEvents(String date, String location, String category) {
-//        if (date != null && location != null && category != null) {
-//            return eventRepository.findByDateContainingAndLocationContainingAndCategoryContaining(date, location, category);
-//        } else if (date != null) {
-//            return eventRepository.findByDateContaining(date);
-//        } else if (location != null) {
-//            return eventRepository.findByLocationContaining(location);
-//        } else if (category != null) {
-//            return eventRepository.findByCategoryContaining(category);
-//        } else {
-//            return eventRepository.findAll();
-//        }
-//    }
 
     public Event getEventById(Long id) {
         return eventRepository.findById(id).orElse(null);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class EventController {
     }
     @GetMapping("/search")
     public ResponseEntity<List<Event>> searchEvents(
-            @RequestParam(required = false) String date,
+            @RequestParam(required = false) LocalDateTime date,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String category) {
         List<Event> events = eventService.searchEvents(date, location, category);

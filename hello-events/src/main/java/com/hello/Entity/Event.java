@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -23,7 +25,7 @@ public class Event {
     private Long id;
     private String name;
     private String description;
-    private Date date;
+    private LocalDateTime date;
     private String location;
     private String category;
     private int availableTickets;
