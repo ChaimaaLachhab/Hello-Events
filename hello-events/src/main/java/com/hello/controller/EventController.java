@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/events")
@@ -17,10 +14,12 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
+    // Endpoint accessible to both roles
     @GetMapping
     public List<Event> getEvents() {
         return eventService.getAllEvents();
     }
+
     @GetMapping("/search")
     public List<Event> searchEvents(@RequestParam(required = false) String date,
                                     @RequestParam(required = false) String location,
@@ -28,33 +27,27 @@ public class EventController {
         return eventService.searchEvents(date, location, category);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);
         return ResponseEntity.ok(event);
     }
 
-    @PostMapping
+    // Endpoint restricted to admin role
+    @PostMapping("/admin")
     public Event createEvent(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/admin/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event eventDetails) {
         Event updatedEvent = eventService.updateEvent(id, eventDetails);
         return ResponseEntity.ok(updatedEvent);
     }
 
-    @DeleteMapping("/{id}")
-    public List<Boolean> deleteEvent(@PathVariable Long id) {
+    @DeleteMapping("/admin/{id}")
+    public ResponseEntity<Boolean> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
-        List<Boolean> response = new ArrayList<>();
-        response.add(Boolean.TRUE);
-        return response;
+        return ResponseEntity.ok(Boolean.TRUE);
     }
-
-
-
-
 }
