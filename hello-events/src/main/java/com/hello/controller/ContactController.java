@@ -1,16 +1,20 @@
 package com.hello.controller;
 
 import com.hello.Entity.Contact;
+import com.hello.Entity.User;
 import com.hello.enums.ContactStatus;
+import com.hello.enums.Role;
 import com.hello.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/contacts")
+@RequestMapping("/api/contacts")
 public class ContactController {
 
     private final ContactService contactService;
@@ -20,31 +24,36 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    // Endpoint pour créer une nouvelle demande de contact (client)
-    @PostMapping
-    public Contact createContact(@RequestBody Contact contact) {
-        return contactService.createContact(contact);
+    @PostMapping("/client")
+    public ResponseEntity<Contact> createContact(
+            @RequestBody Contact contact,
+            @AuthenticationPrincipal User user) {
+        Contact createdContact = contactService.createContact(contact);
+        return ResponseEntity.ok(createdContact);
     }
 
-    // Endpoint pour récupérer toutes les demandes de contact (admin)
-    @GetMapping
-    public List<Contact> getAllContacts(@RequestParam User user) {
-        return contactService.getAllContacts(user);
+    @GetMapping("/admin")
+    public ResponseEntity<List<Contact>> getAllContacts(
+            @AuthenticationPrincipal User user) {
+
+        List<Contact> contacts = contactService.getAllContacts();
+        return ResponseEntity.ok(contacts);
     }
 
-    // Endpoint pour récupérer une demande de contact par ID (admin)
-    @GetMapping("/{id}")
-    public Optional<Contact> getContactById(@PathVariable Long id, @RequestParam User user) {
-        return contactService.getContactById(id, user);
+    @GetMapping("/admin/{id}")
+    public ResponseEntity<Contact> getContactById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal User user) {
+        Optional<Contact> contact = contactService.getContactById(id);
+        return contact.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Endpoint pour mettre à jour le statut d'une demande de contact (admin)
-    @PutMapping("/{id}")
-    public Contact updateContactStatus(
+    @PutMapping("/admin/{id}")
+    public ResponseEntity<Contact> updateContactStatus(
             @PathVariable Long id,
             @RequestParam ContactStatus status,
-            @RequestParam User user) {
-        return contactService.updateContactStatus(id, status, user);
+            @AuthenticationPrincipal User user) {
+        Contact updatedContact = contactService.updateContactStatus(id, status);
+        return ResponseEntity.ok(updatedContact);
     }
 }
-

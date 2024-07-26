@@ -1,5 +1,7 @@
 package com.hello.controller;
 
+import com.hello.Entity.Event;
+import com.hello.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

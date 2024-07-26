@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Ticket {
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +22,7 @@ public class Ticket {
 
     private LocalDateTime purchaseDate;
 
-    public Ticket(Event event, User user) {
+    public Reservation(Event event, User user) {
         this.event = event;
         this.user = user;
     }
