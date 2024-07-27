@@ -44,7 +44,7 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllPurchases(User user) {
-        if (user.getRole() == Role.ROLE_ADMIN) {
+        if (user.getRole() == Role.ADMIN) {
             return reservationRepository.findAll();
         }
         throw new SecurityException("Access Denied");
