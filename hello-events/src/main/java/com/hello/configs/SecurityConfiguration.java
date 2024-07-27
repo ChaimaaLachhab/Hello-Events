@@ -29,12 +29,12 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/contacts/client/**").hasRole("ROLE_CLIENT")
-                        .requestMatchers("/api/contacts/admin/**").hasRole("ROLE_ADMIN")
-                        .requestMatchers("/api/reservations/client/**").hasRole("ROLE_CLIENT")
-                        .requestMatchers("/api/reservations/admin/**").hasRole("ROLE_ADMIN")
-                        .requestMatchers("/api/events/").hasAnyRole("ROLE_CLIENT", "ROLE_ADMIN")
-                        .requestMatchers("/api/events/admin/").hasRole("ROLE_ADMIN")
+                        .requestMatchers("/api/contacts/client/**").hasRole("USER")
+                        .requestMatchers("/api/contacts/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/reservations/client/**").hasRole("USER")
+                        .requestMatchers("/api/reservations/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/events/").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/events/admin/").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
