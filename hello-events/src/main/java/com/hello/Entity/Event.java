@@ -1,6 +1,7 @@
 package com.hello.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hello.enums.EventCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class Event {
     private String description;
     private LocalDateTime date;
     private String location;
-    private String category;
+    private EventCategory category;
     private int availableTickets;
 
     @OneToMany(cascade = CascadeType.ALL)
