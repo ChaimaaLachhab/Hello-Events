@@ -18,7 +18,7 @@ public class Contact {
     @Enumerated(EnumType.STRING)
     private ContactStatus status;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 }
 
