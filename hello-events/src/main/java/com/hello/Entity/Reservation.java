@@ -22,8 +22,4 @@ public class Reservation {
 
     private LocalDateTime purchaseDate;
 
-    public Reservation(Event event, User user) {
-        this.event = event;
-        this.user = user;
-    }
 }

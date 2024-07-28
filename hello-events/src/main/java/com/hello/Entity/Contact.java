@@ -13,11 +13,12 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
     private String message;
 
     @Enumerated(EnumType.STRING)
     private ContactStatus status;
+
+    @OneToOne
+    private User user;
 }
 

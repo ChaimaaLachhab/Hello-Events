@@ -33,6 +33,7 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginUserDto loginUserDto) {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         Role userRole = authenticatedUser.getRole();
+        System.out.println(userRole);
         String jwtToken = jwtService.generateToken(authenticatedUser, userRole);
 
         LoginResponse loginResponse = new LoginResponse();

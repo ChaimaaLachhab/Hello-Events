@@ -24,15 +24,15 @@ public class ContactController {
         this.contactService = contactService;
     }
 
-    @PostMapping("/client")
+    @PostMapping("/client/create")
     public ResponseEntity<Contact> createContact(
             @RequestBody Contact contact,
             @AuthenticationPrincipal User user) {
-        Contact createdContact = contactService.createContact(contact);
+        Contact createdContact = contactService.createContact(contact, user);
         return ResponseEntity.ok(createdContact);
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/all")
     public ResponseEntity<List<Contact>> getAllContacts(
             @AuthenticationPrincipal User user) {
 
@@ -40,7 +40,7 @@ public class ContactController {
         return ResponseEntity.ok(contacts);
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/admin/find/{id}")
     public ResponseEntity<Contact> getContactById(
             @PathVariable Long id,
             @AuthenticationPrincipal User user) {
@@ -48,12 +48,12 @@ public class ContactController {
         return contact.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/admin/{id}")
+    @PutMapping("/admin/update/{id}")
     public ResponseEntity<Contact> updateContactStatus(
             @PathVariable Long id,
-            @RequestParam ContactStatus status,
+            @RequestBody Contact contact,
             @AuthenticationPrincipal User user) {
-        Contact updatedContact = contactService.updateContactStatus(id, status);
+        Contact updatedContact = contactService.updateContactStatus(id, contact);
         return ResponseEntity.ok(updatedContact);
     }
 }

@@ -1,5 +1,6 @@
 package com.hello.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,9 @@ public class Event {
     private String location;
     private String category;
     private int availableTickets;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Reservation> reservations;
 
 

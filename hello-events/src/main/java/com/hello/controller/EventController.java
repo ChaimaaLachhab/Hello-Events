@@ -4,6 +4,7 @@ import com.hello.Entity.Event;
 import com.hello.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -35,18 +36,18 @@ public class EventController {
     }
 
     // Endpoint restricted to admin role
-    @PostMapping("/admin")
+    @PostMapping("/admin/create")
     public Event createEvent(@RequestBody Event event) {
         return eventService.createEvent(event);
     }
 
-    @PutMapping("/admin/{id}")
+    @PutMapping("/admin/update/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event eventDetails) {
         Event updatedEvent = eventService.updateEvent(id, eventDetails);
         return ResponseEntity.ok(updatedEvent);
     }
 
-    @DeleteMapping("/admin/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public ResponseEntity<Boolean> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return ResponseEntity.ok(Boolean.TRUE);

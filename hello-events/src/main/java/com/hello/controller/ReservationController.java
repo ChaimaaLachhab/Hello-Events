@@ -6,7 +6,10 @@ import com.hello.enums.Role;
 import com.hello.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,15 +25,16 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @PostMapping("/client/purchase")
+    @PostMapping("/client/purchase/{eventId}")
     public ResponseEntity<Reservation> purchaseTicket(
-            @RequestParam Long eventId,
+            @PathVariable Long eventId,
             @AuthenticationPrincipal User user) {
+        System.out.println(user.toString());
         Reservation reservation = reservationService.purchaseTicket(eventId, user);
         return ResponseEntity.ok(reservation);
     }
 
-    @GetMapping("/client")
+    @GetMapping("/client/all")
     public ResponseEntity<List<Reservation>> getUserTickets(
             @AuthenticationPrincipal User user) {
         List<Reservation> reservations = reservationService.getTicketsByUser(user);

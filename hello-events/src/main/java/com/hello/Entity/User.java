@@ -1,5 +1,6 @@
 package com.hello.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hello.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
@@ -26,19 +28,29 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
+    @Column(unique = true, length = 100, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(unique = true, length = 100, nullable = false)
     private String email;
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Reservation> reservations;
+
+    @OneToOne
+    private Contact contact;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (role == null) {
-            System.out.println();
+            System.out.println("Role is not initialized.");
             return List.of();
         }
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
@@ -48,7 +60,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

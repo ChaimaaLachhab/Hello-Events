@@ -1,6 +1,7 @@
 package com.hello.service;
 
 import com.hello.Entity.Contact;
+import com.hello.Entity.User;
 import com.hello.enums.ContactStatus;
 import com.hello.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class ContactService {
         this.contactRepository = contactRepository;
     }
 
-    public Contact createContact(Contact contact) {
+    public Contact createContact(Contact contact, User user) {
+        contact.setUser(user);
         return contactRepository.save(contact);
     }
 
@@ -31,11 +33,11 @@ public class ContactService {
         return contactRepository.findById(id);
     }
 
-    public Contact updateContactStatus(Long id, ContactStatus status) {
+    public Contact updateContactStatus(Long id, Contact contacts) {
         Contact contact = contactRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Contact not found"));
 
-        contact.setStatus(status);
+        contact.setStatus(contacts.getStatus());
         return contactRepository.save(contact);
     }
 }

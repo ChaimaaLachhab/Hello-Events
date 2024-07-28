@@ -9,6 +9,7 @@ import com.hello.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,7 +29,10 @@ public class ReservationService {
                 .orElseThrow(() -> new IllegalArgumentException("Event not found"));
 
         if (event.getAvailableTickets() > 0) {
-            Reservation reservation = new Reservation(event, user);
+            Reservation reservation = new Reservation();
+            reservation.setEvent(event);
+            reservation.setUser(user);
+            reservation.setPurchaseDate(LocalDateTime.now());
 
             event.setAvailableTickets(event.getAvailableTickets() - 1);
 
@@ -44,9 +48,6 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllPurchases(User user) {
-        if (user.getRole() == Role.ADMIN) {
-            return reservationRepository.findAll();
-        }
-        throw new SecurityException("Access Denied");
+        return reservationRepository.findAll();
     }
 }
