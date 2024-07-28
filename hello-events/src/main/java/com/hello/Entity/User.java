@@ -41,8 +41,9 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Reservation> reservations;
 
-    @OneToOne
-    private Contact contact;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Contact> contacts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
