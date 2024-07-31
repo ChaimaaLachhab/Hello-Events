@@ -1,6 +1,7 @@
 package com.hello.controller;
 
 import com.hello.Entity.Event;
+import com.hello.enums.EventCategory;
 import com.hello.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class EventController {
     public ResponseEntity<List<Event>> searchEvents(
             @RequestParam(required = false) LocalDateTime date,
             @RequestParam(required = false) String location,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) EventCategory category) {
         List<Event> events = eventService.searchEvents(date, location, category);
         return ResponseEntity.ok(events);
     }
