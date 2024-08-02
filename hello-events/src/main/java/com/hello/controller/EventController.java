@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/events")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EventController {
     @Autowired
     private EventService eventService;
@@ -26,8 +27,9 @@ public class EventController {
     public ResponseEntity<List<Event>> searchEvents(
             @RequestParam(required = false) LocalDateTime date,
             @RequestParam(required = false) String location,
-            @RequestParam(required = false) EventCategory category) {
-        List<Event> events = eventService.searchEvents(date, location, category);
+            @RequestParam(required = false) EventCategory category,
+            @RequestParam(required = false) Double price) {
+        List<Event> events = eventService.searchEvents(date, location, category, price);
         return ResponseEntity.ok(events);
     }
     @GetMapping("/{id}")

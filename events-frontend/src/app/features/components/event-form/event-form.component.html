@@ -1,72 +1,75 @@
-<form action="">
-  <div class="information-g">
-    <a class="general-information">General information</a>
-    <img class="c-info-1" loading="lazy" alt="" src="./public/c-info-1.svg" />
+<div class="container">
+  <div class="stepper-container">
+    <mat-stepper [linear]="isLinear" #stepper class="custom-stepper">
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="nameCtrl" required>
+          </mat-form-field>
+          <mat-form-field floatLabel="always">
+            <mat-label>Image</mat-label>
+            <input matInput formControlName="imgCtrl" type="number" class="example-right-align" placeholder="0" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="descriptionCtrl" placeholder="Event description"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categoryCtrl" placeholder="Select a category">
+              <mat-option *ngFor="let category of eventCategories" [value]="category">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-button (click)="onNextStep(stepper)" class="next-button">Next</button>
+        </form>
+      </mat-step>
 
-    <a class="name">
-      <span>Name </span>
-      <span class="span">*</span>
-    </a>
-    <div class="make-it-catchy">Make it catchy and memorable</div>
-    <mat-form-field class="textbox-34" appearance="fill">
-      <input matInput placeholder="Rock Revolt: A Fusion of Power and Passion" type="text" />
-    </mat-form-field>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
+          <mat-form-field floatLabel="always">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="priceCtrl" type="number" class="example-right-align" placeholder="0" />
+            <span matTextPrefix>$&nbsp;</span>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="addressCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="eventDateCtrl">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Seats numbers</mat-label>
+            <input matInput type="number" formControlName="availableTickets" placeholder="Entre number of seats" required>
+          </mat-form-field>
+          <div style="display: flex; gap: 30px; align-items: center">
+            <button mat-button matStepperPrevious class="back-button">Back</button>
+            <button mat-button (click)="onNextStep(stepper)" class="next-button">Next</button>
+          </div>
 
-    <h3 class="description">Description</h3>
-    <div class="provide-essential-event">
-      Provide essential event details
-    </div>
-    <mat-form-field class="textarea-1" appearance="fill">
-      <textarea matInput class="input-description" placeholder="Input description"></textarea>
-      <div class="resizing-handle-wrapper">
-        <img class="resizing-handle-icon" alt="" src="./public/resizing-handle.svg" />
-      </div>
-    </mat-form-field>
+        </form>
+      </mat-step>
 
-    <h3 class="category">Category</h3>
-    <div class="choose-the-category">
-      Choose the category for your event
-    </div>
-    <mat-form-field class="dropdown-button-1" appearance="fill">
-      <mat-select placeholder="Music">
-        <mat-option value="music">Music</mat-option>
-        <!-- Add other categories here -->
-      </mat-select>
-      <div class="chevron-down-large-wrapper">
-        <img class="chevron-down-large" loading="lazy" alt="" src="./public/chevron-down-large@2x.png" />
-      </div>
-    </mat-form-field>
+      <mat-step>
+        <img src="https://cdni.iconscout.com/illustration/premium/thumb/finished-assignment-9561133-7706343.png" alt="Finished Assignment" class="completed-image">
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div style="display: flex; gap: 30px; align-items: center">
+          <button mat-button matStepperPrevious class="back-button">Back</button>
+          <button mat-button (click)="submitForm(stepper)" class="submit-button">Submit</button>
+        </div>
+      </mat-step>
+
+    </mat-stepper>
   </div>
-
-  <div class="event-form">
-    <div class="location-time">
-      <h2 class="location-and-time">Location and time</h2>
-      <img class="pin-3-36" loading="lazy" alt="" src="./public/pin-3-36@2x.png" />
-
-      <h3 class="location">Location</h3>
-      <div class="you-can-choose">
-        You can choose the location or pinpoint it on the map
-      </div>
-      <b class="address">Address</b>
-      <mat-form-field class="textfield" appearance="fill">
-        <input matInput placeholder="Address" type="text" />
-      </mat-form-field>
-
-      <h3 class="time">Time</h3>
-      <div class="choose-the-start">
-        Choose the start time and end time for your event
-      </div>
-      <b class="event-date">Event Date</b>
-      <mat-form-field class="text" appearance="fill">
-        <input matInput placeholder="Event Date" type="text" />
-      </mat-form-field>
-    </div>
-
-    <button mat-raised-button class="button-68">
-      <div class="next">Next</div>
-      <div class="arrow-right-wrapper">
-        <img class="arrow-right-icon" alt="" src="./public/arrow-right.svg" />
-      </div>
-    </button>
+  <div class="side-image">
+    <img src="https://stage-spb.ru/wp-content/uploads/2020/03/gettyimages-494390172.jpg" alt="Event Image">
   </div>
-</form>
+</div>
