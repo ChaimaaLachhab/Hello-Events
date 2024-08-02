@@ -1,0 +1,18 @@
+<div class="frame1">
+  <div class="sidebar">
+    <div class="sidebar-menu-5">
+      <div
+        class="menu-layout"
+        *ngFor="let item of menuItems"
+        [ngClass]="{ active: activeItem === item }"
+        (click)="activateLink(item)"
+      >
+        <div class="menu-items">
+          <img class="layout-11-icon" loading="lazy" [src]="item.icon" alt="" />
+        </div>
+        <a class="calendar">{{ item.label }}</a>
+      </div>
+    </div>
+  </div>
+</div>
+

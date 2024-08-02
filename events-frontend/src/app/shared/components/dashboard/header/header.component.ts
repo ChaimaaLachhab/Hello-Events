@@ -8,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  isOpen = false;
+  activeTab: string = 'overview';
 
+  toggleNavigation(): void {
+    this.isOpen = !this.isOpen;
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
 }
