@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository <Event,Long> {
 
-    List<Event> findEventByDateOrLocationOrCategory(LocalDateTime date, String location, EventCategory category);
+    List<Event> findEventByDateOrLocationOrCategoryOrPriceOr(LocalDateTime date, String location, EventCategory category, Double price);
 }

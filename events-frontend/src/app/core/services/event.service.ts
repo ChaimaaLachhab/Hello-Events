@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {catchError, Observable, throwError} from 'rxjs';
+import {EventCategory} from "../enums/event-category.enum";
+import {EventClass} from "../models/event-class";
 
 @Injectable({
   providedIn: 'root'
@@ -10,29 +12,46 @@ export class EventService {
 
   constructor(private http: HttpClient) {}
 
-  getAllEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>(this.apiUrl);
-  }
-
-  searchEvents(date: string, location: string, category: string): Observable<Event[]> {
-    return this.http.get<Event[]>(`${this.apiUrl}/search`, {
-      params: { date, location, category }
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     });
   }
 
-  getEventById(id: number): Observable<Event> {
-    return this.http.get<Event>(`${this.apiUrl}/${id}`);
+  getAllEvents(): Observable<EventClass[]> {
+    return this.http.get<EventClass[]>(this.apiUrl);
   }
 
-  createEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(`${this.apiUrl}/admin/create`, event);
+  searchEvents(location: string, category: EventCategory, dateTime: Date | null): Observable<EventClass[]> {
+    let params = new HttpParams();
+    if (location) params = params.set('location', location);
+    if (category) params = params.set('category', category);
+    if (dateTime) params = params.set('dateTime', dateTime.toISOString());
+
+    return this.http.get<EventClass[]>(`${this.apiUrl}/search`, { headers: this.getHeaders(), params })
+      .pipe(catchError(this.handleError));
   }
 
-  updateEvent(id: number, event: Event): Observable<Event> {
-    return this.http.put<Event>(`${this.apiUrl}/admin/update/${id}`, event);
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(() => new Error('Something went wrong, please try again later.'));
+  }
+
+  getEventById(id: number): Observable<EventClass> {
+    return this.http.get<EventClass>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  createEvent(event: EventClass): Observable<EventClass> {
+    return this.http.post<EventClass>(`${this.apiUrl}/admin/create`, event, { headers: this.getHeaders() });
+  }
+
+  updateEvent(id: number, event: EventClass): Observable<EventClass> {
+    return this.http.put<EventClass>(`${this.apiUrl}/admin/update/${id}`, event, { headers: this.getHeaders() });
   }
 
   deleteEvent(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.apiUrl}/admin/delete/${id}`);
+    return this.http.delete<boolean>(`${this.apiUrl}/admin/delete/${id}`, { headers: this.getHeaders() });
   }
 }
