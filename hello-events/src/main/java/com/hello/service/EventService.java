@@ -18,8 +18,8 @@ public class EventService {
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
-    public List<Event> searchEvents(LocalDateTime date, String location, EventCategory category) {
-        return eventRepository.findEventByDateOrLocationOrCategory(date, location, category);
+    public List<Event> searchEvents(LocalDateTime date, String location, EventCategory category, Double price) {
+        return eventRepository.findEventByDateOrLocationOrCategoryOrPriceOr(date, location, category, price);
     }
 
     public Event getEventById(Long id) {

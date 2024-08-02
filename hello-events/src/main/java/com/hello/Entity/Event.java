@@ -26,6 +26,8 @@ public class Event {
     private String name;
     private String description;
     private LocalDateTime date;
+    private String image;
+    private Double price;
     private String location;
     private EventCategory category;
     private int availableTickets;
