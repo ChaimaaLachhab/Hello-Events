@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -17,5 +17,11 @@ export class HeaderComponent {
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+  }
+
+  @Output() createEvent = new EventEmitter<void>();
+
+  onCreateEvent() {
+    this.createEvent.emit();
   }
 }

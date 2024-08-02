@@ -21,7 +21,7 @@ export class EventService {
   }
 
   getAllEvents(): Observable<EventClass[]> {
-    return this.http.get<EventClass[]>(this.apiUrl);
+    return this.http.get<EventClass[]>(`${this.apiUrl}/all`, { headers: this.getHeaders() });
   }
 
   searchEvents(location: string, category: EventCategory, dateTime: Date | null): Observable<EventClass[]> {

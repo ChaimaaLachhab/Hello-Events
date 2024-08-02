@@ -19,7 +19,7 @@ public class EventController {
     private EventService eventService;
 
     // Endpoint accessible to both roles
-    @GetMapping
+    @GetMapping("/all")
     public List<Event> getEvents() {
         return eventService.getAllEvents();
     }

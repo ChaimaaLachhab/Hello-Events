@@ -6,22 +6,31 @@
           <ng-template matStepLabel>Fill out your name</ng-template>
           <mat-form-field>
             <mat-label>Name</mat-label>
-            <input matInput placeholder="Last name, First name" formControlName="nameCtrl" required>
+            <input matInput type="text" placeholder="Last name, First name" formControlName="nameCtrl" required>
           </mat-form-field>
-          <mat-form-field floatLabel="always">
+          <mat-form-field>
             <mat-label>Image</mat-label>
-            <input matInput formControlName="imgCtrl" type="number" class="example-right-align" placeholder="0" />
+            <input matInput formControlName="imgCtrl" type="text" class="example-right-align" placeholder="Event Image" />
           </mat-form-field>
           <mat-form-field>
             <mat-label>Description</mat-label>
-            <textarea matInput formControlName="descriptionCtrl" placeholder="Event description"></textarea>
+            <textarea matInput type="text" formControlName="descriptionCtrl" placeholder="Event description"></textarea>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Category</mat-label>
-            <mat-select formControlName="categoryCtrl" placeholder="Select a category">
-              <mat-option *ngFor="let category of eventCategories" [value]="category">{{category}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+              <mat-select formControlName="categoryCtrl" placeholder="Select a category">
+                <mat-option [value]="EventCategory.CONFERENCE">CONFERENCE</mat-option>
+                <mat-option [value]="EventCategory.WORKSHOP">WORKSHOP</mat-option>
+                <mat-option [value]="EventCategory.MEETUP">MEETUP</mat-option>
+                <mat-option [value]="EventCategory.CONCERT">CONCERT</mat-option>
+                <mat-option [value]="EventCategory.FESTIVAL">FESTIVAL</mat-option>
+                <mat-option [value]="EventCategory.WEBINAR">WEBINAR</mat-option>
+                <mat-option [value]="EventCategory.SEMINAR">SEMINAR</mat-option>
+                <mat-option [value]="EventCategory.PARTY">PARTY</mat-option>
+                <mat-option [value]="EventCategory.EXHIBITION">EXHIBITION</mat-option>
+                <mat-option [value]="EventCategory.SPORT_EVENT">SPORT_EVENT</mat-option>
+              </mat-select>
+            </mat-form-field>
           <button mat-button (click)="onNextStep(stepper)" class="next-button">Next</button>
         </form>
       </mat-step>
@@ -36,7 +45,7 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Address</mat-label>
-            <input matInput formControlName="addressCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+            <input matInput formControlName="addressCtrl" type="text" placeholder="Ex. 1 Main St, New York, NY" required>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Choose a date</mat-label>

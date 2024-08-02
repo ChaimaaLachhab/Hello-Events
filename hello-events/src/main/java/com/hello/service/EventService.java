@@ -19,7 +19,7 @@ public class EventService {
         return eventRepository.findAll();
     }
     public List<Event> searchEvents(LocalDateTime date, String location, EventCategory category, Double price) {
-        return eventRepository.findEventByDateOrLocationOrCategoryOrPriceOr(date, location, category, price);
+        return eventRepository.findEventByDateOrLocationOrCategoryOrPrice(date, location, category, price);
     }
 
     public Event getEventById(Long id) {

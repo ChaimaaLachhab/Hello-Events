@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { EventCategory } from "../../../core/enums/event-category.enum";
 import { MatOption, MatSelect } from "@angular/material/select";
-import { NgForOf } from "@angular/common";
+import {NgForOf, TitleCasePipe} from "@angular/common";
 import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from "@angular/material/datepicker";
 import { provideNativeDateAdapter } from "@angular/material/core";
 import {EventService} from "../../../core/services/event.service";
@@ -27,7 +27,8 @@ import {EventClass} from "../../../core/models/event-class";
     NgForOf,
     MatDatepickerInput,
     MatDatepickerToggle,
-    MatDatepicker
+    MatDatepicker,
+    TitleCasePipe
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './event-form.component.html',
@@ -99,4 +100,6 @@ export class EventFormComponent {
     }
     });
   }
+
+  protected readonly EventCategory = EventCategory;
 }

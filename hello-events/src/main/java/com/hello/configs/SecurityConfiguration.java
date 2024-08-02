@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/contacts/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/reservations/client/**").hasAuthority("ROLE_USER")
                         .requestMatchers("/api/reservations/admin/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/api/events/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/events/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/api/events/admin/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
