@@ -11,7 +11,7 @@ import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from "@angular
 import { provideNativeDateAdapter } from "@angular/material/core";
 import {EventService} from "../../../core/services/event.service";
 import {Router} from "@angular/router";
-import {EventClass} from "../../../core/models/event-class";
+import {Event} from "../../../core/models/event";
 
 @Component({
   selector: 'app-event-form',
@@ -24,11 +24,9 @@ import {EventClass} from "../../../core/models/event-class";
     MatStepperModule,
     MatSelect,
     MatOption,
-    NgForOf,
     MatDatepickerInput,
     MatDatepickerToggle,
-    MatDatepicker,
-    TitleCasePipe
+    MatDatepicker
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './event-form.component.html',
@@ -72,7 +70,7 @@ export class EventFormComponent {
       return;
     }
 
-    const event: EventClass = {
+    const event: Event = {
       name: this.firstFormGroup.value.nameCtrl as string,
       description: this.firstFormGroup.value.descriptionCtrl as string,
       image: this.firstFormGroup.value.imgCtrl as string,

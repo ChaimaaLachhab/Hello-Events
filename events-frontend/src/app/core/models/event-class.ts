@@ -2,6 +2,7 @@ import {EventCategory} from "../enums/event-category.enum";
 import {Reservation} from "./reservation";
 
 export class EventClass {
+  id!: number;
   name!: string;
   description!: string;
   image!: string;

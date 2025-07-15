@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CurrencyPipe, DatePipe, NgForOf} from "@angular/common";
-import {EventClass} from "../../../core/models/event-class";
+import {Event} from "../../../core/models/event";
 import {EventService} from "../../../core/services/event.service";
 
 @Component({
@@ -14,8 +14,8 @@ import {EventService} from "../../../core/services/event.service";
   templateUrl: './event-list-admin.component.html',
   styleUrl: './event-list-admin.component.scss'
 })
-export class EventListAdminComponent {
-  events: EventClass[] = [];
+export class EventListAdminComponent implements OnInit {
+  events: Event[] = [];
 
   constructor(private eventService: EventService) {}
 
